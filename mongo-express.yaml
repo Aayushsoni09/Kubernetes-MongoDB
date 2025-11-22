@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  mongo-express
+  namespace: default
+  labels:
+    app:  mongo-express
+spec:
+  selector:
+    matchLabels:
+      app: mongo-express
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  mongo-express
+    spec:
+      initContainers:
+      - name: check-mongo-service
+        image: busybox:1.36 # A small utility image
+        command: ['sh', '-c', 'until nc -z -v -w30 mongodb-service 27017; do echo "Waiting for MongoDB service..."; sleep 5; done;']
+      containers:
+      - name:  mongo-express
+        image:  mongo-express
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password    
+        - name: ME_CONFIG_MONGODB_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_url 
+        ports:
+        - containerPort:  8081
