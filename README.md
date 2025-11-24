@@ -46,35 +46,22 @@ Service → Pod (MongoDB)
 ## ⚙️ How to Run This Project
 
 ### 1. Start Minikube
-
-```bash
-minikube start
+- minikube start
 
 ### 2.Enable Ingress
+- minikube addons enable ingress
 
-```bash
-minikube addons enable ingress
----
 ### 3. Apply Kubernetes Manifests
-
-```bash
-kubectl apply -f mongo.yaml
-kubectl apply -f mongo-express.yaml
-kubectl apply -f dashboard-ingress.yaml
----
+- kubectl apply -f mongo.yaml
+- kubectl apply -f mongo-express.yaml
+- kubectl apply -f dashboard-ingress.yaml
 
 ### 4. Port forward the Dashboard
-
-```bash
-kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8443:443
-
----
+- kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8443:443
 
 ### 5. Access the Services
 - Kubernetes Dashboard - https://localhost:8443
 - Mongo Express - via Port Forward / Ingress
-
----
 
 # 📚 Key Kubernetes Concepts Used
 
