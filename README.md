@@ -54,24 +54,29 @@ minikube start
 
 ```bash
 minikube addons enable ingress
-
+---
 ### 3. Apply Kubernetes Manifests
 
 ```bash
 kubectl apply -f mongo.yaml
 kubectl apply -f mongo-express.yaml
 kubectl apply -f dashboard-ingress.yaml
+---
 
 ### 4. Port forward the Dashboard
 
 ```bash
 kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8443:443
 
+---
+
 ### 5. Access the Services
 - Kubernetes Dashboard - https://localhost:8443
 - Mongo Express - via Port Forward / Ingress
 
-### 📚 Key Kubernetes Concepts Used
+---
+
+# 📚 Key Kubernetes Concepts Used
 
 - Pods
 
@@ -88,13 +93,13 @@ kubectl port-forward svc/kubernetes-dashboard -n kubernetes-dashboard 8443:443
 - Ingress
 
 ---
-### 🎯 Goal
+# 🎯 Goal
 
 - This project was created as a stepping stone to master Kubernetes before moving to real production clusters like AWS EKS.
 
-### 🙌 Author
+# 🙌 Author
 
-Aayush Soni
-Cloud & Kubernetes Learner 🚀
+## Aayush Soni
+### Cloud & Kubernetes Learner 🚀
 
 ---
